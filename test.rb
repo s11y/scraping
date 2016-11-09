@@ -101,15 +101,15 @@ for num in 0...16 do
 
     title = div_tag.css('.project-index-single-inner > .project-detail > h1 > a').text
     title.tr!(from_chr, to_chr)
-    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
+    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace => "?").encode("UTF-8","Shift_JIS")
 
     link = 'https://www.wantedly.com/' + div_tag.css('.project-index-single-inner > .project-detail > h1 > a').attr('href').value
     link.tr!(from_chr, to_chr)
-    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
+    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
 
     company_name = div_tag.css('.company-name.company-without-prefecture > h3 > a').text
     company_name.tr!(from_chr, to_chr)
-    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
+    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
 
     html_wantedly_company = open(company_url, "User-Agent" => user_agent_wantedly) do |f|
       charset_wantedly = f.charset
@@ -163,7 +163,7 @@ for  number in 1600...1642 do
 
     company_name = div_tag.css('.company-name.company-without-prefecture > h3 > a').text
     company_name.tr!(from_chr, to_chr)
-    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
+    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace => "?").encode("UTF-8","Shift_JIS")
 
     html_wantedly_company = open(company_url, "User-Agent" => user_agent_wantedly) do |f|
       charset_wantedly = f.charset
