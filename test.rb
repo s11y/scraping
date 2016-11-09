@@ -94,22 +94,23 @@ for num in 0...16 do
 
     arr = Array.new()
 
-    from_chr = "\u{301C 2212 00A2 00A3 00AC 2013 2014 2016 203E 00A0 00F8 203A}"
-    to_chr   = "\u{FF5E FF0D FFE0 FFE1 FFE2 FF0D 2015 2225 FFE3 0020 03A6 3009}"
+    from_chr = "\u{301C 2212 00A2 00A3 00AC 2013 2014 2016 203E 00A0 00F8 203A}" # 3231 FF5E
+    to_chr   = "\u{FF5E FF0D FFE0 FFE1 FFE2 FF0D 2015 2225 FFE3 0020 03A6 3009}" # 878A 301C
 
     company_url = 'https://www.wantedly.com/' + div_tag.css('.company-name.company-without-prefecture > h3 > a').attr('href').value
+    company_url.tr!(from_chr, to_chr)
 
     title = div_tag.css('.project-index-single-inner > .project-detail > h1 > a').text
     title.tr!(from_chr, to_chr)
-    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace => "?").encode("UTF-8","Shift_JIS")
+    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace => "*").encode("UTF-8","Shift_JIS")
 
     link = 'https://www.wantedly.com/' + div_tag.css('.project-index-single-inner > .project-detail > h1 > a').attr('href').value
     link.tr!(from_chr, to_chr)
-    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
+    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"*").encode("UTF-8","Shift_JIS")
 
     company_name = div_tag.css('.company-name.company-without-prefecture > h3 > a').text
     company_name.tr!(from_chr, to_chr)
-    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
+    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=> '*').encode("UTF-8", "Shift_JIS")
 
     html_wantedly_company = open(company_url, "User-Agent" => user_agent_wantedly) do |f|
       charset_wantedly = f.charset
@@ -127,7 +128,7 @@ for num in 0...16 do
     end
 end
 
-for  number in 1600...1642 do
+for  number in 1600...1657 do
   url = url_wantedly + '?page=' + number.to_s + '&project%5Bkeyword%5D='
 
   begin
@@ -148,22 +149,22 @@ for  number in 1600...1642 do
 
     arr = Array.new()
 
-    from_chr = "\u{301C 2212 00A2 00A3 00AC 2013 2014 2016 203E 00A0 00F8 203A 3231}"
-    to_chr   = "\u{FF5E FF0D FFE0 FFE1 FFE2 FF0D 2015 2225 FFE3 0020 03A6 3009 878A}"
+    from_chr = "\u{301C 2212 00A2 00A3 00AC 2013 2014 2016 203E 00A0 00F8 203A 3231 FF5E 878A}"
+    to_chr   = "\u{FF5E FF0D FFE0 FFE1 FFE2 FF0D 2015 2225 FFE3 0020 03A6 3009 878A 301C ADEA}"
 
     company_url = 'https://www.wantedly.com/' + div_tag.css('.company-name.company-without-prefecture > h3 > a').attr('href').value
 
     title = div_tag.css('.project-index-single-inner > .project-detail > h1 > a').text
-    title.tr!(from_chr, to_chr)
-    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
+    title.tr(from_chr, to_chr)
+    title.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
 
     link = 'https://www.wantedly.com/' + div_tag.css('.project-index-single-inner > .project-detail > h1 > a').attr('href').value
-    link.tr!(from_chr, to_chr)
-    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace=>"?").encode("UTF-8","Shift_JIS")
+    link.tr(from_chr, to_chr)
+    link.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
 
     company_name = div_tag.css('.company-name.company-without-prefecture > h3 > a').text
-    company_name.tr!(from_chr, to_chr)
-    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace, :replace => "?").encode("UTF-8","Shift_JIS")
+    company_name.tr(from_chr, to_chr)
+    company_name.encode("Shift_JIS","UTF-8",:invalid => :replace,:undef=>:replace).encode("UTF-8","Shift_JIS")
 
     html_wantedly_company = open(company_url, "User-Agent" => user_agent_wantedly) do |f|
       charset_wantedly = f.charset
